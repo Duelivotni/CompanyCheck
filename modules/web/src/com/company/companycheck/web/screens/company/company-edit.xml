@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://companyEdit.caption"
+        focusComponent="form"
+        messagesPack="com.company.companycheck.web.screens.company">
+    <data>
+        <instance id="companyDc"
+                  class="com.company.companycheck.entity.Company">
+            <view extends="_local">
+                <property name="branches" view="_minimal">
+                    <property name="branchName"/>
+                </property>
+                <property name="generalManager" view="_minimal">
+                    <property name="fullName"/>
+                </property>
+            </view>
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="companyDc">
+            <column width="350px">
+                <textField id="shortNameField" property="shortName"/>
+                <textField id="fullNameField" property="fullName"/>
+                <textField id="taxNumberField" property="taxNumber"/>
+                <textField id="kppField" property="kpp"/>
+                <dateField id="registationDateField" property="registationDate"/>
+                <textField id="branchNameField" property="branchName"/>
+                <textField id="generalManagersListField" property="generalManagersList"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

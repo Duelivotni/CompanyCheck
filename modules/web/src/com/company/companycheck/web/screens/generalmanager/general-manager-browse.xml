@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://generalManagerBrowse.caption"
+        focusComponent="generalManagersTable"
+        messagesPack="com.company.companycheck.web.screens.generalmanager">
+    <data readOnly="true">
+        <collection id="generalManagersDc"
+                    class="com.company.companycheck.entity.GeneralManager">
+            <view extends="_local">
+                <property name="managedCompany" view="_minimal">
+                    <property name="fullName"/>
+                </property>
+            </view>
+            <loader id="generalManagersDl">
+                <query>
+                    <![CDATA[select e from companycheck_GeneralManager e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="generalManagersTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="generalManagersTable"
+                dataLoader="generalManagersDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="generalManagersTable"
+                    width="100%"
+                    dataContainer="generalManagersDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="fullName"/>
+                <column id="managedCompany.fullName"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="generalManagersTable.create"/>
+                <button id="editBtn" action="generalManagersTable.edit"/>
+                <button id="removeBtn" action="generalManagersTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

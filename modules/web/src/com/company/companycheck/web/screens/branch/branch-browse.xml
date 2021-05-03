@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://branchBrowse.caption"
+        focusComponent="branchesTable"
+        messagesPack="com.company.companycheck.web.screens.branch">
+    <data readOnly="true">
+        <collection id="branchesDc"
+                    class="com.company.companycheck.entity.Branch">
+            <view extends="_local">
+                <property name="company" view="_minimal">
+                    <property name="fullName"/>
+                </property>
+            </view>
+            <loader id="branchesDl">
+                <query>
+                    <![CDATA[select e from companycheck_Branch e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="branchesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="branchesTable"
+                dataLoader="branchesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="branchesTable"
+                    width="100%"
+                    dataContainer="branchesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="branchName"/>
+                <column id="company.fullName"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="branchesTable.create"/>
+                <button id="editBtn" action="branchesTable.edit"/>
+                <button id="removeBtn" action="branchesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
